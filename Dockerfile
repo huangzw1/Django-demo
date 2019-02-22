@@ -1,12 +1,9 @@
-# 基础镜像信息
-FROM registry.local/factory/pythonbase:1.0
-# 创建目录
-RUN mkdir -p /usr/local/ph
-# 拷贝文件
-ADD ./ /usr/local/ph
-# 设置工作目录
-WORKDIR /usr/local/ph
-# 安装requirements
-RUN pip install --no-cache-dir -r requirements.txt
-CMD ["python", "./manage.py runserver 5000"]
-EXPOSE 5000
+FROM python:3.6
+RUN mkdir -p /usr/src/app
+WORKDIR /usr/src/app
+COPY pip.conf /root/.pip/pip.conf
+COPY requirements.txt /usr/src/app/
+RUN pip install -r /usr/src/app/requirements.txt
+RUN rm -rf /usr/src/app
+COPY . /usr/src/app
+CMD [ "python", "./manage.py", "runserver", "0.0.0.0:8080"]
