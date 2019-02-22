@@ -7,3 +7,4 @@ RUN pip install -r /usr/src/app/requirements.txt
 RUN rm -rf /usr/src/app
 COPY . /usr/src/app
 CMD [ "python", "./manage.py", "runserver", "8002"]
+EXPOSE 8002
